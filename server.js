@@ -31,8 +31,8 @@ app.post('/search', async (req, res) => {
       // Handle the API call with try-catch to manage errors
       try {
         const result = await model.generateContent(prompt);
-        console.log(result.response.text());
-        return res.json({ messages: result.response.text() });
+        console.log(result.response.text().replace(/\*\*/g, ''));
+        return res.json({ messages: result.response.text().replace(/\*\*/g, '') });
       } catch (apiError) {
         console.error("Error in generating content:", apiError);
         return res.status(500).json({ error: "Failed to generate content. Please check your internet connection or try again later." });
@@ -48,6 +48,6 @@ app.post('/search', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0',  () => {
+app.listen(PORT, '192.168.43.79',  () => {
   console.log(`Server is running on port ${PORT}`);
 });
